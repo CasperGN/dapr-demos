@@ -1,14 +1,11 @@
 import asyncio
 import logging
 
-from dotenv import load_dotenv
-
 from dapr_agents import DaprChatClient, DurableAgent  # type: ignore
 from dapr_agents.workflow.runners import AgentRunner # type: ignore
 
 
 async def main():
-    load_dotenv()
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger(__name__)
 

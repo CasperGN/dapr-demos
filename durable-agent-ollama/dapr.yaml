@@ -1,0 +1,11 @@
+version: 1
+common:
+  resourcesPath: ./components
+  logLevel: info
+  appLogDestination: console
+  daprdLogDestination: console
+
+apps:
+- appID: da-ollama
+  appDirPath: .
+  command: ["./.venv/bin/python3", "main.py"]

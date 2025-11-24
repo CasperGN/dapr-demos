@@ -3,7 +3,6 @@ import logging
 
 from dotenv import load_dotenv
 
-
 from dapr_agents import DaprChatClient, DurableAgent  # type: ignore
 from dapr_agents.workflow.runners import AgentRunner # type: ignore
 
@@ -15,7 +14,7 @@ async def main():
 
     llm = DaprChatClient(component_name='ollama')
 
-    weather_agent = DurableAgent(
+    durable_agent = DurableAgent(
         role="Personal Assistant",
         name="Stevie",
         goal="Help humans answer any question they may have.",
@@ -24,14 +23,14 @@ async def main():
         ],
         llm=llm
     )
-    weather_agent.start()
+    durable_agent.start()
     runner = AgentRunner()
 
     try:
         prompt = "How can I run ollama locally with Dapr Conversation API and dapr-agents durable agent?"
 
         result = await runner.run(
-            weather_agent,
+            durable_agent,
             payload={"task": prompt},
         )
 
@@ -41,7 +40,7 @@ async def main():
         logger.error(f"Error running workflow: {e}", exc_info=True)
         raise
     finally:
-        weather_agent.stop()
+        durable_agent.stop()
         runner.shutdown()
 
 
